@@ -57,8 +57,19 @@
   header p{font-size:.78rem;color:var(--brown-light);margin-top:6px;font-weight:500;letter-spacing:.3px}
   header .rule{width:36px;height:2px;background:var(--brown);margin:12px auto 0;border-radius:2px}
 
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+  .banner,header,.tiles .tile,.qr-block{animation:fadeUp .5s ease both}
+  header{animation-delay:.05s}
+  .tiles .tile:nth-child(1){animation-delay:.08s}
+  .tiles .tile:nth-child(2){animation-delay:.14s}
+  .tiles .tile:nth-child(3){animation-delay:.2s}
+  .tiles .tile:nth-child(4){animation-delay:.26s}
+  .tiles .tile:nth-child(5){animation-delay:.32s}
+  .tiles .tile:nth-child(6){animation-delay:.38s}
+  .qr-block{animation-delay:.44s}
+
   .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 10px}
-  .tile{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+  .tile{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:inherit;padding:0;transition:transform .15s}
   .tile:active{transform:scale(.96)}
   .tile .photo{
     width:100%;aspect-ratio:1/1;border-radius:14px;overflow:hidden;
@@ -170,8 +181,9 @@
 
   function pageHTML(cat){
     var c = CATS[cat];
-    var rows = c.items.map(function(it){
-      return '<div class="item">'+
+    var rows = c.items.map(function(it, idx){
+      var delay = (0.08 + Math.min(idx, 10) * 0.045).toFixed(3);
+      return '<div class="item" style="animation-delay:'+delay+'s">'+
         '<div class="item-thumb">'+thumbHTML(it.img || c.icon)+'</div>'+
         '<div class="item-text"><div class="item-name">'+it.n+'</div>'+
         (it.d ? '<div class="item-desc">'+it.d+'</div>' : '')+
@@ -187,9 +199,12 @@
       '<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">'+
       '<style>'+
       '*{box-sizing:border-box}'+
-      'body{font-family:"Vazirmatn",sans-serif;background:linear-gradient(180deg,#1E1B19,#121212 65%);margin:0;min-height:100vh;display:flex;justify-content:center;color:#fff}'+
+      '@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}'+
+      'body{font-family:"Vazirmatn",sans-serif;background:linear-gradient(180deg,#1E1B19,#121212 65%);margin:0;min-height:100vh;display:flex;justify-content:center;color:#fff;transition:opacity .18s ease}'+
+      'body.closing{opacity:0}'+
       '.wrap{width:100%;max-width:480px;padding:18px 16px 50px}'+
-      '.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}'+
+      '.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;animation:fadeUp .45s ease both}'+
+      '.item{animation:fadeUp .45s ease both}'+
       '.close-btn{background:transparent;border:1.5px solid #A9744F;color:#FFFFFF;border-radius:999px;padding:7px 16px;font-family:"Vazirmatn",sans-serif;font-size:.8rem;cursor:pointer}'+
       '.cat-title{color:#FFFFFF;font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:8px}'+
       '.cat-title .ic{width:30px;height:30px;border-radius:50%;overflow:hidden;background:linear-gradient(160deg,#A9744F,#4A2C18);display:flex;align-items:center;justify-content:center;font-size:.95rem}'+
@@ -202,7 +217,7 @@
       '.item-desc{font-size:.8rem;color:#9C8F86;margin-top:3px;line-height:1.45}'+
       '.price{font-weight:700;font-size:.92rem;color:#C89A63;margin-top:6px}'+
       '</style></head><body><div class="wrap">'+
-      '<div class="topbar"><button class="close-btn" onclick="window.close()">بازگشت</button>'+
+      '<div class="topbar"><button class="close-btn" onclick="document.body.classList.add(\'closing\');setTimeout(function(){window.close()},180)">بازگشت</button>'+
       '<div class="cat-title">'+c.title+'<span class="ic">'+badge+'</span></div></div>'+
       '<div class="grid">'+rows+'</div>'+
       '</div></body></html>';
