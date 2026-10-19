@@ -92,6 +92,10 @@
   .qr-block #qr{background:#fff;padding:6px;border-radius:6px;line-height:0}
   .qr-text b{display:block;font-size:.88rem;margin-bottom:3px}
   .qr-text span{font-size:.74rem;color:var(--brown-dark)}
+  .social{display:flex;justify-content:center;margin-top:22px;animation:fadeUp .5s ease both;animation-delay:.5s}
+  .social a{display:inline-flex;align-items:center;gap:8px;direction:ltr;color:var(--brown-light);text-decoration:none;font-size:.82rem;font-weight:600;padding:9px 16px;border:1px solid var(--brown);border-radius:999px;transition:transform .15s}
+  .social a:active{transform:scale(.97)}
+  .social svg{width:18px;height:18px;flex:0 0 auto}
 </style>
 </head>
 <body>
@@ -115,6 +119,13 @@
   <div class="qr-block">
     <div id="qr"></div>
     <div class="qr-text"><b>اسکن کنید</b><span>برای دیدن منو روی گوشی خودتون</span></div>
+  </div>
+
+  <div class="social">
+    <a href="https://www.instagram.com/Cafe_._.kazheh" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      <span>@Cafe_._.kazheh</span>
+    </a>
   </div>
 </div>
 
